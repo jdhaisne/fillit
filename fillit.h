@@ -6,7 +6,7 @@
 /*   By: jdhaisne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/13 14:46:29 by jdhaisne          #+#    #+#             */
-/*   Updated: 2015/12/13 14:58:03 by jdhaisne         ###   ########.fr       */
+/*   Updated: 2015/12/14 16:47:28 by jdhaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int			ft_get_nb_tetrimino(char *s);
 char		**read_stdin(char *argv, int *nb_tetrimino_ptr);
 t_tetrimino *ft_splittab(char **tab, int *nb_tetrimino_ptr);
 t_tetrimino	*ft_newtetri(char **tetrimino, int num);
-
+char **solve(t_tetrimino *start, int square_size, char **tab_solved);
 
 #endif
