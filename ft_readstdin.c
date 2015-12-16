@@ -6,21 +6,20 @@
 /*   By: cfelbacq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/06 14:31:53 by cfelbacq          #+#    #+#             */
-/*   Updated: 2015/12/12 16:51:13 by cfelbacq         ###   ########.fr       */
+/*   Updated: 2015/12/16 11:50:50 by cfelbacq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "fillit.h"
-#include "dev.h"
 #include <stdlib.h>
+#include "libft.h"
 
 static	char	**ft_fill_tab(char **tab, char *buf)
 {
 	int	i;
 	int	j;
 	int	k;
-	
+
 	i = 0;
 	j = 0;
 	k = 0;
@@ -44,15 +43,13 @@ static	char	**ft_fill_tab(char **tab, char *buf)
 	return (tab);
 }
 
-char	**read_stdin(char *argv, int *nb_tetrimino_ptr)
+char			**read_stdin(char *argv, int *nb_tetrimino_ptr)
 {
 	int		fd;
 	int		ret;
 	int		i;
 	char	buf[BUFF_SIZE + 1];
 	char	**tmp;
-
-
 
 	fd = open(argv, O_RDONLY);
 	ret = 1;
@@ -68,7 +65,7 @@ char	**read_stdin(char *argv, int *nb_tetrimino_ptr)
 	return (tmp);
 }
 
-t_tetrimino *ft_splittab(char **tab, int *nb_tetrimino_ptr)
+t_tetrimino		*ft_splittab(char **tab, int *nb_tetrimino_ptr)
 {
 	int			i;
 	t_tetrimino	*start;
@@ -79,7 +76,7 @@ t_tetrimino *ft_splittab(char **tab, int *nb_tetrimino_ptr)
 	ptr = NULL;
 	start = ft_newtetri(ft_strsplit(tab[0], '\n'), 0);
 	ptr = start;
-	while(i < *nb_tetrimino_ptr)
+	while (i < *nb_tetrimino_ptr)
 	{
 		ptr->next = ft_newtetri(ft_strsplit(tab[i], '\n'), i);
 		ptr = ptr->next;

@@ -6,7 +6,7 @@
 /*   By: jdhaisne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/09 13:07:04 by jdhaisne          #+#    #+#             */
-/*   Updated: 2015/12/12 14:26:37 by cfelbacq         ###   ########.fr       */
+/*   Updated: 2015/12/16 12:22:28 by jdhaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,33 @@ t_tetrimino	*ft_newtetri(char **tetrimino, int num)
 	new->y = 0;
 	new->next = NULL;
 	return (new);
+}
+
+char		**create_tab(char **tab, int square_size)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	free(tab);
+	tab = (char **)malloc(sizeof(char *) * square_size + 1);
+	while (i < square_size)
+	{
+		tab[i] = (char*)malloc(sizeof(char) * square_size + 1);
+		i++;
+	}
+	i = 0;
+	while (j < square_size)
+	{
+		while (i < square_size)
+		{
+			tab[j][i++] = '.';
+		}
+		tab[j][i] = '\0';
+		i = 0;
+		j++;
+	}
+	tab[j] = NULL;
+	return (tab);
 }

@@ -6,15 +6,14 @@
 /*   By: cfelbacq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/07 15:50:20 by cfelbacq          #+#    #+#             */
-/*   Updated: 2015/12/15 15:47:15 by jdhaisne         ###   ########.fr       */
+/*   Updated: 2015/12/16 11:58:48 by cfelbacq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include "dev.h"
 #include "libft.h"
 
-void puttab(char **tab)
+static void	puttab(char **tab)
 {
 	int i;
 
@@ -27,12 +26,12 @@ void puttab(char **tab)
 	}
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_tetrimino *start;
-	char **tab;
-	int		*nb_tetrimino_ptr;
-	int 	nb_tetrimino;
+	char		**tab;
+	int			*nb_tetrimino_ptr;
+	int			nb_tetrimino;
 
 	start = NULL;
 	tab = NULL;
@@ -48,8 +47,6 @@ int		main(int argc, char **argv)
 	}
 	start = ft_splittab(tab, nb_tetrimino_ptr);
 	arange(start);
-	//ft_putlst(start);
 	puttab(solve(start, 2, NULL));
-	//solve(start, 2, NULL);
 	return (1);
 }
