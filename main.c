@@ -6,7 +6,7 @@
 /*   By: cfelbacq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/07 15:50:20 by cfelbacq          #+#    #+#             */
-/*   Updated: 2015/12/16 11:58:48 by cfelbacq         ###   ########.fr       */
+/*   Updated: 2015/12/23 11:49:35 by jdhaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,44 @@ static void	puttab(char **tab)
 	}
 }
 
+void		ft_free_tab(char **tab, int tab_size)
+{
+	int i;
+
+	i = 0;
+	while (i < tab_size)
+	{
+		ft_strdel(&tab[i]);
+		i++;
+	}
+	ft_strdel(tab);
+}
+
 int			main(int argc, char **argv)
 {
 	t_tetrimino *start;
 	char		**tab;
-	int			*nb_tetrimino_ptr;
-	int			nb_tetrimino;
 
 	start = NULL;
 	tab = NULL;
-	nb_tetrimino = 0;
-	nb_tetrimino_ptr = &nb_tetrimino;
 	if (argc != 2)
-		return (0);
-	tab = read_stdin(argv[1], nb_tetrimino_ptr);
-	if (ft_check(tab, nb_tetrimino_ptr) == 0)
 	{
-		ft_putstr("ERROR");
+		ft_putendl("error");
 		return (0);
 	}
-	start = ft_splittab(tab, nb_tetrimino_ptr);
-	arange(start);
+	if ((tab = read_stdin(argv[1])) == NULL)
+	{
+		ft_putendl("error");
+		return (0);
+	}
+	if (ft_check(tab) == 0)
+	{
+		ft_putendl("error");
+		ft_free_tab(tab, g_nb_tetrimino + 1);
+		return (0);
+	}
+	start = ft_splittab(tab);
+	ft_free_tab(tab, g_nb_tetrimino + 1);
 	puttab(solve(start, 2, NULL));
 	return (1);
 }

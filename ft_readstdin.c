@@ -6,7 +6,7 @@
 /*   By: cfelbacq <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/06 14:31:53 by cfelbacq          #+#    #+#             */
-/*   Updated: 2015/12/16 11:50:50 by cfelbacq         ###   ########.fr       */
+/*   Updated: 2015/12/23 14:44:01 by jdhaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,47 +25,48 @@ static	char	**ft_fill_tab(char **tab, char *buf)
 	k = 0;
 	while (j < ft_get_nb_tetrimino(buf))
 	{
-		tab[j] = (char*)malloc(sizeof(char) * 19 + 1);
+		tab[j] = (char*)malloc(sizeof(char) * 20 + 1);
 		if (tab[j] == NULL)
 			return (NULL);
-		while (k < 19)
+		while (k < 20)
 		{
 			tab[j][k] = buf[i];
 			k++;
 			i++;
 		}
-		tab[j][19] = '\0';
+		tab[j][20] = '\0';
 		k = 0;
 		j++;
-		i = i + 2;
+		i++;
 	}
 	tab[j] = NULL;
 	return (tab);
 }
 
-char			**read_stdin(char *argv, int *nb_tetrimino_ptr)
+char			**read_stdin(char *argv)
 {
 	int		fd;
 	int		ret;
-	int		i;
 	char	buf[BUFF_SIZE + 1];
 	char	**tmp;
 
-	fd = open(argv, O_RDONLY);
+	if ((fd = open(argv, O_RDONLY)) == -1)
+		return (NULL);
 	ret = 1;
-	i = 0;
 	tmp = NULL;
 	while ((ret = read(fd, buf, BUFF_SIZE)) != 0)
 		buf[ret] = '\0';
-	*nb_tetrimino_ptr = ft_get_nb_tetrimino(buf);
+	g_nb_tetrimino = ft_get_nb_tetrimino(buf);
 	tmp = (char**)malloc(sizeof(char *) * ft_get_nb_tetrimino(buf) + 1);
 	if (tmp == NULL)
+		return (NULL);
+	if (first_test(buf) == 0)
 		return (NULL);
 	tmp = ft_fill_tab(tmp, buf);
 	return (tmp);
 }
 
-t_tetrimino		*ft_splittab(char **tab, int *nb_tetrimino_ptr)
+t_tetrimino		*ft_splittab(char **tab)
 {
 	int			i;
 	t_tetrimino	*start;
@@ -76,7 +77,7 @@ t_tetrimino		*ft_splittab(char **tab, int *nb_tetrimino_ptr)
 	ptr = NULL;
 	start = ft_newtetri(ft_strsplit(tab[0], '\n'), 0);
 	ptr = start;
-	while (i < *nb_tetrimino_ptr)
+	while (i < g_nb_tetrimino)
 	{
 		ptr->next = ft_newtetri(ft_strsplit(tab[i], '\n'), i);
 		ptr = ptr->next;

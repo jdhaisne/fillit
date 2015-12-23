@@ -6,7 +6,7 @@
 /*   By: jdhaisne <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/13 14:46:29 by jdhaisne          #+#    #+#             */
-/*   Updated: 2015/12/16 12:23:36 by jdhaisne         ###   ########.fr       */
+/*   Updated: 2015/12/23 13:55:23 by jdhaisne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+int g_nb_tetrimino;
 # define BUFF_SIZE 4096
 
 typedef struct			s_tetrimino
@@ -31,14 +32,21 @@ typedef struct			s_tetrimino
 	struct s_tetrimino	*next;
 }						t_tetrimino;
 
-t_tetrimino				*arange(t_tetrimino *start);
-int						ft_check(char **tab, int *nb_tetrimino_ptr);
+t_tetrimino				*arrange(t_tetrimino *start);
+int						ft_check(char **tab);
 int						ft_get_nb_tetrimino(char *s);
-char					**read_stdin(char *argv, int *nb_tetrimino_ptr);
-t_tetrimino				*ft_splittab(char **tab, int *nb_tetrimino_ptr);
+char					**read_stdin(char *argv);
+t_tetrimino				*ft_splittab(char **tab);
 t_tetrimino				*ft_newtetri(char **tetrimino, int num);
 char					**solve(t_tetrimino *start, int square_size,\
 		char **tab_solved);
 char					**create_tab(char **tab, int square_size);
-
+void					ft_free_tab(char **tab, int tab_size);
+int						ft_check_square(char *s);
+int						ft_check_bar(char *s);
+int						get_height(char *s);
+int						get_width(char *s);
+int						ft_is_alone(char *s);
+int						ft_check_void_int(char *s);
+int						first_test(char *buf);
 #endif
